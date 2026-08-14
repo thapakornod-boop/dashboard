@@ -17,7 +17,7 @@ import {
 } from "recharts";
 
 // ---------------------------------------------------------------------------
-// ICONS — inline SVG, ไม่ต้องติดตั้ง icon package เพิ่ม
+// ICONS
 // ---------------------------------------------------------------------------
 type IconProps = {
   size?: number;
@@ -173,6 +173,17 @@ const PIE_COLORS = [
   "#9BBDF7",
   "#B8CEF8",
   "#D1DFFB",
+  "#A78BFA",
+  "#C4B5FD",
+  "#6EE7B7",
+  "#34D399",
+  "#FCD34D",
+  "#FCA5A5",
+  "#93C5FD",
+  "#86EFAC",
+  "#FDA4AF",
+  "#F9A8D4",
+  "#6CDDEE",
 ];
 
 const fmtBaht = (n: number) =>
@@ -190,112 +201,120 @@ const pct = (actual: number, base: number) =>
   base === 0 ? 0 : (actual / base) * 100;
 
 // ---------------------------------------------------------------------------
-// MOCK DATA
-// จุดนี้ออกแบบให้เปลี่ยนเป็น query จาก Supabase ได้ภายหลัง
+// DATA — ข้อมูลจริงจาก Excel (month) | quarter/year รอ Supabase
 // ---------------------------------------------------------------------------
 const DATA = {
   month: {
     label: "สิงหาคม 2026",
-    currentTotal: 12_450_000,
-    lastYearTotal: 10_850_000,
-    baseTotal: 12_000_000,
+    currentTotal: 129_598_522,
+    lastYearTotal: 5500000000,
+    baseTotal: 418_304_979,
     lineBill: 8.4,
     bahtBill: 1482,
     target: {
-      label: "Target Aug ’26",
-      target: 12_000_000,
-      givMtd: 12_450_000,
-      nivMtd: 10_700_000,
-      be: 11_400_000,
+      label: "Target Aug '26",
+      target: 418_304_979,
+      givMtd: 129_598_522,
+      nivMtd: 113_671_842,
+      be: 398_677_308,
     },
     trend: [
-      { m: "มี.ค.", v: 9.6 },
-      { m: "เม.ย.", v: 10.1 },
-      { m: "พ.ค.", v: 9.9 },
-      { m: "มิ.ย.", v: 11.2 },
-      { m: "ก.ค.", v: 11.8 },
-      { m: "ส.ค.", v: 12.45 },
+      { m: "มิ.ย.", v: 506.0 },
+      { m: "ก.ค.", v: 462.7 },
+      { m: "ส.ค.", v: 129.6 },
     ],
     companySales: [
-      { company: "SDO", lastYear: 4_200_000, current: 4_850_000 },
-      { company: "PDC", lastYear: 3_600_000, current: 4_100_000 },
-      { company: "DC", lastYear: 3_050_000, current: 3_500_000 },
+      { company: "SDO", lastYear: 4_200_000, current: 70_361_019 },
+      { company: "PDC", lastYear: 3_600_000, current: 34_266_213 },
+      { company: "DC",  lastYear: 3_050_000, current: 24_971_290 },
     ],
     principals: [
-      { name: "Principal A", value: 3_200_000 },
-      { name: "Principal B", value: 2_750_000 },
-      { name: "Principal C", value: 2_100_000 },
-      { name: "Principal D", value: 1_850_000 },
-      { name: "Principal E", value: 1_400_000 },
-      { name: "Principal F", value: 1_150_000 },
+      { name: "P&G", value: 70_361_019 },
+      { name: "MDL", value: 12_087_687 },
+      { name: "FNT", value: 9_491_642  },
+      { name: "DUM", value: 8_614_526  },
+      { name: "RB1", value: 4_684_041  },
+      { name: "JDE", value: 4_116_478  },
+      { name: "NIS", value: 3_889_802  },
+      { name: "OSP", value: 3_550_768  },
+      { name: "AST", value: 2_766_568  },
+      { name: "SCJ", value: 2_067_221  },
+      { name: "CAS", value: 1_855_161  },
+      { name: "GLI", value: 1_523_753  },
+      { name: "GON", value: 1_321_610  },
+      { name: "KHA", value: 805_333    },
+      { name: "SCO", value: 727_288    },
+      { name: "PRA", value: 183_919    },
+      { name: "NES", value: 79_288     },
     ],
     givByCompany: [
-      { company: "SDO", base: 4_500_000, actual: 4_850_000 },
-      { company: "PDC", base: 4_000_000, actual: 4_100_000 },
-      { company: "DC", base: 3_500_000, actual: 3_500_000 },
+      { company: "SDO", base: 208_125_893, actual: 70_361_019 },
+      { company: "PDC", base: 146_031_836, actual: 34_266_213 },
+      { company: "DC",  base: 123_836_253, actual: 24_971_290 },
     ],
     nivByCompany: [
-      { company: "SDO", base: 3_900_000, actual: 4_200_000 },
-      { company: "PDC", base: 3_500_000, actual: 3_550_000 },
-      { company: "DC", base: 3_100_000, actual: 2_950_000 },
+      { company: "SDO", base: 171_320_748, actual: 60_089_155 },
+      { company: "PDC", base: 136_694_592, actual: 31_144_703 },
+      { company: "DC",  base: 116_823_041, actual: 22_437_983 },
     ],
     givNivByCompany: [
-      { company: "SDO", GIV: 4_850_000, NIV: 4_200_000 },
-      { company: "PDC", GIV: 4_100_000, NIV: 3_550_000 },
-      { company: "DC", GIV: 3_500_000, NIV: 2_950_000 },
+      { company: "SDO", GIV: 70_361_019, NIV: 60_089_155 },
+      { company: "PDC", GIV: 34_266_213, NIV: 31_144_703 },
+      { company: "DC",  GIV: 24_971_290, NIV: 22_437_983 },
     ],
   },
 
-  // ตัวอย่างข้อมูลสำหรับ 3 เดือนย้อนหลัง
+  // รอข้อมูลจาก Supabase
   quarter: {
     label: "มิ.ย. - ส.ค. 2026",
-    currentTotal: 35_920_000,
+    currentTotal: 1_098_354_437,
     lastYearTotal: 31_480_000,
     baseTotal: 34_500_000,
     lineBill: 8.7,
     bahtBill: 1518,
     target: {
-      label: "Target Jun–Aug ’26",
+      label: "Target Jun–Aug '26",
       target: 34_500_000,
-      givMtd: 35_920_000,
+      givMtd: 1_098_354_437,
       nivMtd: 32_450_000,
       be: 33_200_000,
     },
     trend: [
-      { m: "มิ.ย.", v: 11.2 },
-      { m: "ก.ค.", v: 11.8 },
-      { m: "ส.ค.", v: 12.92 },
+      { m: "มิ.ย.", v: 506.0 },
+      { m: "ก.ค.", v: 462.7 },
+      { m: "ส.ค.", v: 129.6 },
     ],
     companySales: [
       { company: "SDO", lastYear: 12_100_000, current: 14_020_000 },
       { company: "PDC", lastYear: 10_450_000, current: 12_050_000 },
-      { company: "DC", lastYear: 8_930_000, current: 9_850_000 },
+      { company: "DC",  lastYear: 8_930_000,  current: 9_850_000  },
     ],
     principals: [
-      { name: "Principal A", value: 8_900_000 },
-      { name: "Principal B", value: 7_300_000 },
-      { name: "Principal C", value: 6_100_000 },
-      { name: "Principal D", value: 5_200_000 },
-      { name: "Principal E", value: 4_650_000 },
-      { name: "Principal F", value: 3_770_000 },
+      { name: "P&G", value: 70_361_019 },
+      { name: "MDL", value: 12_087_687 },
+      { name: "FNT", value: 9_491_642  },
+      { name: "DUM", value: 8_614_526  },
+      { name: "RB1", value: 4_684_041  },
+      { name: "JDE", value: 4_116_478  },
     ],
     givByCompany: [
       { company: "SDO", base: 13_000_000, actual: 14_020_000 },
       { company: "PDC", base: 12_000_000, actual: 12_050_000 },
-      { company: "DC", base: 9_500_000, actual: 9_850_000 },
+      { company: "DC",  base: 9_500_000,  actual: 9_850_000  },
     ],
     nivByCompany: [
       { company: "SDO", base: 11_400_000, actual: 12_200_000 },
       { company: "PDC", base: 10_100_000, actual: 10_450_000 },
-      { company: "DC", base: 8_000_000, actual: 7_850_000 },
+      { company: "DC",  base: 8_000_000,  actual: 7_850_000  },
     ],
     givNivByCompany: [
       { company: "SDO", GIV: 14_020_000, NIV: 12_200_000 },
       { company: "PDC", GIV: 12_050_000, NIV: 10_450_000 },
-      { company: "DC", GIV: 9_850_000, NIV: 7_850_000 },
+      { company: "DC",  GIV: 9_850_000,  NIV: 7_850_000  },
     ],
   },
 
+  // รอข้อมูลจาก Supabase
   year: {
     label: "ม.ค. - ส.ค. 2026",
     currentTotal: 98_650_000,
@@ -304,7 +323,7 @@ const DATA = {
     lineBill: 8.9,
     bahtBill: 1536,
     target: {
-      label: "Target Jan–Aug ’26",
+      label: "Target Jan–Aug '26",
       target: 94_000_000,
       givMtd: 98_650_000,
       nivMtd: 84_550_000,
@@ -316,37 +335,37 @@ const DATA = {
       { m: "มี.ค.", v: 11.6 },
       { m: "เม.ย.", v: 11.9 },
       { m: "พ.ค.", v: 12.2 },
-      { m: "มิ.ย.", v: 13.1 },
-      { m: "ก.ค.", v: 14.1 },
-      { m: "ส.ค.", v: 14.25 },
+      { m: "มิ.ย.", v: 506.0 },
+      { m: "ก.ค.", v: 462.7 },
+      { m: "ส.ค.", v: 129.6 },
     ],
     companySales: [
       { company: "SDO", lastYear: 34_800_000, current: 39_200_000 },
       { company: "PDC", lastYear: 29_100_000, current: 34_650_000 },
-      { company: "DC", lastYear: 24_300_000, current: 24_800_000 },
+      { company: "DC",  lastYear: 24_300_000, current: 24_800_000 },
     ],
     principals: [
-      { name: "Principal A", value: 24_500_000 },
-      { name: "Principal B", value: 19_800_000 },
-      { name: "Principal C", value: 17_100_000 },
-      { name: "Principal D", value: 14_300_000 },
-      { name: "Principal E", value: 12_400_000 },
-      { name: "Principal F", value: 10_550_000 },
+      { name: "P&G", value: 70_361_019 },
+      { name: "MDL", value: 12_087_687 },
+      { name: "FNT", value: 9_491_642  },
+      { name: "DUM", value: 8_614_526  },
+      { name: "RB1", value: 4_684_041  },
+      { name: "JDE", value: 4_116_478  },
     ],
     givByCompany: [
       { company: "SDO", base: 37_000_000, actual: 39_200_000 },
       { company: "PDC", base: 33_000_000, actual: 34_650_000 },
-      { company: "DC", base: 24_000_000, actual: 24_800_000 },
+      { company: "DC",  base: 24_000_000, actual: 24_800_000 },
     ],
     nivByCompany: [
       { company: "SDO", base: 32_000_000, actual: 34_100_000 },
       { company: "PDC", base: 28_000_000, actual: 29_600_000 },
-      { company: "DC", base: 21_000_000, actual: 20_850_000 },
+      { company: "DC",  base: 21_000_000, actual: 20_850_000 },
     ],
     givNivByCompany: [
       { company: "SDO", GIV: 39_200_000, NIV: 34_100_000 },
       { company: "PDC", GIV: 34_650_000, NIV: 29_600_000 },
-      { company: "DC", GIV: 24_800_000, NIV: 20_850_000 },
+      { company: "DC",  GIV: 24_800_000, NIV: 20_850_000 },
     ],
   },
 } as const;
@@ -360,11 +379,7 @@ function LogoMark({ size = 40 }: { size?: number }) {
   return (
     <div
       className="logo-mark"
-      style={{
-        width: size,
-        height: size,
-        borderRadius: 999,
-      }}
+      style={{ width: size, height: size, borderRadius: 999 }}
     >
       <span style={{ fontSize: size * 0.39 }}>R8M</span>
     </div>
@@ -373,7 +388,6 @@ function LogoMark({ size = 40 }: { size?: number }) {
 
 function TrendChip({ value }: { value: number }) {
   const up = value >= 0;
-
   return (
     <div
       className="trend-chip"
@@ -426,7 +440,6 @@ function Panel({
 
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload || !payload.length) return null;
-
   return (
     <div className="custom-tooltip">
       <div className="tooltip-label">{label}</div>
@@ -439,7 +452,6 @@ function CustomTooltip({ active, payload, label }: any) {
     </div>
   );
 }
-
 
 function ExecutiveTargetCard({
   title,
@@ -464,19 +476,14 @@ function ExecutiveTargetCard({
       <div className="exec-card-top">
         <div
           className="exec-icon"
-          style={{
-            color: accent,
-            background: `${accent}14`,
-          }}
+          style={{ color: accent, background: `${accent}14` }}
         >
           {icon}
         </div>
         {target !== undefined && <TrendChip value={ratio - 100} />}
       </div>
-
       <div className="exec-label">{title}</div>
       <div className="exec-value">{suffix || fmtBaht(value)}</div>
-
       {target !== undefined && (
         <>
           <div className="exec-target-line">
@@ -533,7 +540,6 @@ function ExecutiveTargetSection({
           icon={<Target size={18} />}
           accent={T.orange}
         />
-
         <ExecutiveTargetCard
           title="ยอดขาย GIV MTD"
           value={target.givMtd}
@@ -541,7 +547,6 @@ function ExecutiveTargetSection({
           icon={<TrendingUp size={18} />}
           accent={T.blue}
         />
-
         <ExecutiveTargetCard
           title="ยอดขาย NIV MTD"
           value={target.nivMtd}
@@ -549,7 +554,6 @@ function ExecutiveTargetSection({
           icon={<Wallet size={18} />}
           accent={T.purple}
         />
-
         <ExecutiveTargetCard
           title="BE"
           value={target.be}
@@ -557,7 +561,6 @@ function ExecutiveTargetSection({
           icon={<Target size={18} />}
           accent={T.success}
         />
-
         <div className="exec-card be-card">
           <div className="exec-card-top">
             <div
@@ -576,7 +579,6 @@ function ExecutiveTargetSection({
               {beVsTarget >= 100 ? "ผ่าน Target" : "ต่ำกว่า Target"}
             </div>
           </div>
-
           <div className="exec-label">% BE vs Target</div>
           <div className="exec-value">{beVsTarget.toFixed(1)}%</div>
           <div className="exec-target-line">
@@ -624,15 +626,11 @@ function BaseVsActualCard({
           <div className="base-title">{title}</div>
           <div className="base-subtitle">{subtitle}</div>
         </div>
-
         <div className="mini-ring-wrap">
           <div
             className="mini-ring"
             style={{
-              background: `conic-gradient(${accent} ${Math.min(
-                overallPct,
-                100
-              )}%, ${T.slateBg} 0)`,
+              background: `conic-gradient(${accent} ${Math.min(overallPct, 100)}%, ${T.slateBg} 0)`,
             }}
           >
             <div className="mini-ring-inner">{overallPct.toFixed(0)}%</div>
@@ -649,7 +647,6 @@ function BaseVsActualCard({
         {data.map((d) => {
           const progress = pct(d.actual, d.base);
           const over = progress >= 100;
-
           return (
             <div key={d.company} className="base-item">
               <div className="base-item-top">
@@ -658,7 +655,6 @@ function BaseVsActualCard({
                   {progress.toFixed(0)}%
                 </strong>
               </div>
-
               <div className="base-progress">
                 <div
                   className="base-progress-fill"
@@ -669,7 +665,6 @@ function BaseVsActualCard({
                 />
                 <div className="base-target-marker" title="Base 100%" />
               </div>
-
               <div className="base-item-bottom">
                 <span>{fmtBaht(d.actual)}</span>
                 <span>Base {fmtBaht(d.base)}</span>
@@ -687,7 +682,6 @@ function BaseVsActualCard({
 // ---------------------------------------------------------------------------
 export default function Dashboard() {
   const [period, setPeriod] = useState<PeriodId>("month");
-
   const data = DATA[period];
 
   const growthPct = useMemo(
@@ -713,25 +707,24 @@ export default function Dashboard() {
 
   return (
     <div className="shell">
-      {/* ---------------------------------------------------------------- */}
-      {/* SIDEBAR — เหลือเมนูเดียวตามที่ต้องการ */}
-      {/* ---------------------------------------------------------------- */}
+      {/* SIDEBAR */}
       <aside className="sidebar">
         <LogoMark size={50} />
-
-<nav className="side-nav">
-  <button className="side-btn active" title="ภาพรวมการขาย">
-    <LayoutGrid size={20} />
-  </button>
-  <button className="side-btn" title="ยอดขายรายคน" onClick={() => window.location.href = '/sales'}>
-    <Users size={20} />
-  </button>
-</nav>
+        <nav className="side-nav">
+          <button className="side-btn active" title="ภาพรวมการขาย">
+            <LayoutGrid size={20} />
+          </button>
+          <button
+            className="side-btn"
+            title="ยอดขายรายคน"
+            onClick={() => (window.location.href = "/sales")}
+          >
+            <Users size={20} />
+          </button>
+        </nav>
       </aside>
 
-      {/* ---------------------------------------------------------------- */}
       {/* MAIN */}
-      {/* ---------------------------------------------------------------- */}
       <div className="main">
         <header className="header">
           <div>
@@ -739,13 +732,11 @@ export default function Dashboard() {
             <h1 className="title">ภาพรวมยอดขาย</h1>
             <div className="header-period">{data.label}</div>
           </div>
-
           <div className="header-actions">
             <div className="search">
               <Search size={15} color={T.sub} />
               <input placeholder="ค้นหาบริษัท, Principal..." />
             </div>
-
             <div className="user-box">
               <div className="avatar">RSM</div>
               <div className="user-text">
@@ -761,26 +752,20 @@ export default function Dashboard() {
           <div className="toolbar">
             <div>
               <div className="toolbar-title">ช่วงเวลาข้อมูล</div>
-              <div className="toolbar-sub">
-                เลือกมุมมองที่ต้องการดู
-              </div>
+              <div className="toolbar-sub">เลือกมุมมองที่ต้องการดู</div>
             </div>
-
             <div className="toolbar-right">
               <div className="pill-group">
                 {periodButtons.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => setPeriod(item.id)}
-                    className={`pill ${
-                      period === item.id ? "pill-active" : ""
-                    }`}
+                    className={`pill ${period === item.id ? "pill-active" : ""}`}
                   >
                     {item.label}
                   </button>
                 ))}
               </div>
-
               <button className="date-btn">
                 <Calendar size={15} />
                 {data.label}
@@ -789,33 +774,25 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* ---------------------------------------------------------------- */}
-          {/* EXECUTIVE TARGET / MTD */}
-          {/* ---------------------------------------------------------------- */}
+          {/* EXECUTIVE TARGET */}
           <ExecutiveTargetSection target={data.target} />
 
-          {/* ---------------------------------------------------------------- */}
-          {/* KPI — ตัวเลขหลักที่ขอมา */}
-          {/* ---------------------------------------------------------------- */}
+          {/* KPI GRID */}
           <div className="kpi-grid">
             <div className="panel hero">
               <div className="hero-glow hero-glow-one" />
               <div className="hero-glow hero-glow-two" />
-
               <div className="hero-top">
                 <div className="hero-icon">
                   <Wallet size={20} />
                 </div>
                 <TrendChip value={growthPct} />
               </div>
-
-              <div className="hero-label">ยอดขายปัจจุบัน</div>
+              <div className="hero-label">ยอดขายปัจจุบัน (GIV)</div>
               <div className="hero-value">{fmtBaht(data.currentTotal)}</div>
-
               <div className="hero-sub">
                 เทียบปีก่อน {fmtBaht(data.lastYearTotal)}
               </div>
-
               <div className="hero-spark">
                 <ResponsiveContainer width="100%" height={58}>
                   <LineChart data={[...data.trend]}>
@@ -832,10 +809,7 @@ export default function Dashboard() {
             </div>
 
             <div className="panel kpi">
-              <div
-                className="kpi-icon"
-                style={{ color: T.slateDark, background: T.slateBg }}
-              >
+              <div className="kpi-icon" style={{ color: T.slateDark, background: T.slateBg }}>
                 <TrendingUp size={18} />
               </div>
               <div className="kpi-label">ยอดขายปีก่อน</div>
@@ -844,10 +818,7 @@ export default function Dashboard() {
             </div>
 
             <div className="panel kpi">
-              <div
-                className="kpi-icon"
-                style={{ color: T.blue, background: T.blueBg }}
-              >
+              <div className="kpi-icon" style={{ color: T.blue, background: T.blueBg }}>
                 <Receipt size={18} />
               </div>
               <div className="kpi-label">Line / Bill</div>
@@ -856,10 +827,7 @@ export default function Dashboard() {
             </div>
 
             <div className="panel kpi">
-              <div
-                className="kpi-icon"
-                style={{ color: T.blueDark, background: T.blueBg }}
-              >
+              <div className="kpi-icon" style={{ color: T.blueDark, background: T.blueBg }}>
                 <Wallet size={18} />
               </div>
               <div className="kpi-label">Baht / Bill</div>
@@ -868,10 +836,7 @@ export default function Dashboard() {
             </div>
 
             <div className="panel kpi">
-              <div
-                className="kpi-icon"
-                style={{ color: T.orange, background: T.orangeBg }}
-              >
+              <div className="kpi-icon" style={{ color: T.orange, background: T.orangeBg }}>
                 <Target size={18} />
               </div>
               <div className="kpi-label">ยอดขายปัจจุบัน vs Base</div>
@@ -882,10 +847,7 @@ export default function Dashboard() {
             </div>
 
             <div className="panel kpi">
-              <div
-                className="kpi-icon"
-                style={{ color: T.purple, background: T.purpleBg }}
-              >
+              <div className="kpi-icon" style={{ color: T.purple, background: T.purpleBg }}>
                 <Users size={18} />
               </div>
               <div className="kpi-label">ยอดขายรวมราย Principal</div>
@@ -894,29 +856,22 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* ---------------------------------------------------------------- */}
           {/* TREND + COMPANY SALES */}
-          {/* ---------------------------------------------------------------- */}
           <div className="two-col">
             <Panel>
               <SectionTitle
                 icon={<TrendingUp size={16} />}
-                sub="แนวโน้มยอดขายตามช่วงเวลาที่เลือก"
+                sub="แนวโน้มยอดขายตามช่วงเวลาที่เลือก (ล้านบาท)"
               >
                 แนวโน้มยอดขาย
               </SectionTitle>
-
               <div className="chart-wrap">
                 <ResponsiveContainer width="100%" height={265}>
                   <LineChart
                     data={[...data.trend]}
                     margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
                   >
-                    <CartesianGrid
-                      strokeDasharray="3 3"
-                      stroke={T.border}
-                      vertical={false}
-                    />
+                    <CartesianGrid strokeDasharray="3 3" stroke={T.border} vertical={false} />
                     <XAxis
                       dataKey="m"
                       tick={{ fontSize: 12, fill: T.sub }}
@@ -949,11 +904,7 @@ export default function Dashboard() {
                       name="ยอดขาย"
                       stroke={T.blue}
                       strokeWidth={3}
-                      dot={{
-                        r: 4,
-                        strokeWidth: 2,
-                        fill: "#fff",
-                      }}
+                      dot={{ r: 4, strokeWidth: 2, fill: "#fff" }}
                       activeDot={{ r: 6 }}
                     />
                   </LineChart>
@@ -968,14 +919,9 @@ export default function Dashboard() {
               >
                 ยอดขายรายบริษัท
               </SectionTitle>
-
               <ResponsiveContainer width="100%" height={265}>
                 <BarChart data={[...data.companySales]} barGap={7}>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke={T.border}
-                    vertical={false}
-                  />
+                  <CartesianGrid strokeDasharray="3 3" stroke={T.border} vertical={false} />
                   <XAxis
                     dataKey="company"
                     tick={{ fontSize: 12, fill: T.sub }}
@@ -989,39 +935,18 @@ export default function Dashboard() {
                     tickFormatter={(v) => `${v / 1e6}M`}
                   />
                   <Tooltip content={<CustomTooltip />} cursor={{ fill: T.blueBg }} />
-                  <Bar
-                    dataKey="lastYear"
-                    name="ปีก่อน"
-                    fill={T.slate}
-                    radius={[7, 7, 0, 0]}
-                    maxBarSize={30}
-                  />
-                  <Bar
-                    dataKey="current"
-                    name="ปัจจุบัน"
-                    fill={T.blue}
-                    radius={[7, 7, 0, 0]}
-                    maxBarSize={30}
-                  />
+                  <Bar dataKey="lastYear" name="ปีก่อน" fill={T.slate} radius={[7, 7, 0, 0]} maxBarSize={30} />
+                  <Bar dataKey="current" name="ปัจจุบัน" fill={T.blue} radius={[7, 7, 0, 0]} maxBarSize={30} />
                 </BarChart>
               </ResponsiveContainer>
-
               <div className="legend">
-                <span>
-                  <i style={{ background: T.slate }} />
-                  ปีก่อน
-                </span>
-                <span>
-                  <i style={{ background: T.blue }} />
-                  ปัจจุบัน
-                </span>
+                <span><i style={{ background: T.slate }} />ปีก่อน</span>
+                <span><i style={{ background: T.blue }} />ปัจจุบัน</span>
               </div>
             </Panel>
           </div>
 
-          {/* ---------------------------------------------------------------- */}
           {/* PRINCIPAL PIE + COMPANY DETAIL */}
-          {/* ---------------------------------------------------------------- */}
           <div className="two-col">
             <Panel>
               <SectionTitle
@@ -1030,7 +955,6 @@ export default function Dashboard() {
               >
                 ยอดขายราย Principal
               </SectionTitle>
-
               <div className="pie-layout">
                 <ResponsiveContainer width="55%" height={285}>
                   <PieChart>
@@ -1047,29 +971,19 @@ export default function Dashboard() {
                       strokeWidth={3}
                     >
                       {data.principals.map((item, index) => (
-                        <Cell
-                          key={item.name}
-                          fill={PIE_COLORS[index % PIE_COLORS.length]}
-                        />
+                        <Cell key={item.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                       ))}
                     </Pie>
                     <Tooltip content={<CustomTooltip />} />
                   </PieChart>
                 </ResponsiveContainer>
-
                 <div className="pie-center-list">
                   {data.principals.map((item, index) => {
                     const share = pct(item.value, principalTotal);
-
                     return (
                       <div className="principal-row" key={item.name}>
                         <div className="principal-name">
-                          <i
-                            style={{
-                              background:
-                                PIE_COLORS[index % PIE_COLORS.length],
-                            }}
-                          />
+                          <i style={{ background: PIE_COLORS[index % PIE_COLORS.length] }} />
                           <span>{item.name}</span>
                         </div>
                         <strong>{share.toFixed(1)}%</strong>
@@ -1087,43 +1001,26 @@ export default function Dashboard() {
               >
                 รายละเอียดบริษัท
               </SectionTitle>
-
               <div className="company-list">
                 {data.companySales.map((company) => {
-                  const growth = pct(
-                    company.current - company.lastYear,
-                    company.lastYear
-                  );
-
+                  const growth = pct(company.current - company.lastYear, company.lastYear);
                   return (
                     <div className="company-row" key={company.company}>
-                      <div className="company-avatar">
-                        {company.company.slice(0, 1)}
-                      </div>
-
+                      <div className="company-avatar">{company.company.slice(0, 1)}</div>
                       <div className="company-main">
                         <div className="company-row-top">
                           <strong>{company.company}</strong>
                           <TrendChip value={growth} />
                         </div>
-
                         <div className="company-values">
-                          <span>
-                            ปัจจุบัน <b>{fmtBaht(company.current)}</b>
-                          </span>
-                          <span>
-                            ปีก่อน {fmtBaht(company.lastYear)}
-                          </span>
+                          <span>ปัจจุบัน <b>{fmtBaht(company.current)}</b></span>
+                          <span>ปีก่อน {fmtBaht(company.lastYear)}</span>
                         </div>
-
                         <div className="progress-track company-progress">
                           <div
                             className="progress-fill"
                             style={{
-                              width: `${Math.min(
-                                pct(company.current, company.lastYear),
-                                140
-                              ) / 1.4}%`,
+                              width: `${Math.min(pct(company.current, company.lastYear), 140) / 1.4}%`,
                               background: T.blue,
                             }}
                           />
@@ -1136,9 +1033,7 @@ export default function Dashboard() {
             </Panel>
           </div>
 
-          {/* ---------------------------------------------------------------- */}
-          {/* CURRENT VS BASE — GIV / NIV */}
-          {/* ---------------------------------------------------------------- */}
+          {/* GIV / NIV VS BASE */}
           <div>
             <SectionTitle
               icon={<Target size={16} />}
@@ -1146,7 +1041,6 @@ export default function Dashboard() {
             >
               ยอดขายปัจจุบัน vs Base
             </SectionTitle>
-
             <div className="two-col base-grid">
               <BaseVsActualCard
                 title="GIV"
@@ -1154,7 +1048,6 @@ export default function Dashboard() {
                 data={[...data.givByCompany]}
                 accent={T.blue}
               />
-
               <BaseVsActualCard
                 title="NIV"
                 subtitle="Net Invoice Value"
@@ -1164,9 +1057,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* ---------------------------------------------------------------- */}
-          {/* GIV / NIV BY COMPANY */}
-          {/* ---------------------------------------------------------------- */}
+          {/* GIV / NIV BY COMPANY BAR */}
           <Panel>
             <SectionTitle
               icon={<Building2 size={16} />}
@@ -1174,14 +1065,9 @@ export default function Dashboard() {
             >
               ยอดขายแต่ละบริษัท — GIV / NIV
             </SectionTitle>
-
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={[...data.givNivByCompany]} barGap={8}>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke={T.border}
-                  vertical={false}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={T.border} vertical={false} />
                 <XAxis
                   dataKey="company"
                   tick={{ fontSize: 12, fill: T.sub }}
@@ -1195,79 +1081,49 @@ export default function Dashboard() {
                   tickFormatter={(v) => `${v / 1e6}M`}
                 />
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: T.blueBg }} />
-                <Bar
-                  dataKey="GIV"
-                  name="GIV"
-                  fill={T.blue}
-                  radius={[8, 8, 0, 0]}
-                  maxBarSize={38}
-                />
-                <Bar
-                  dataKey="NIV"
-                  name="NIV"
-                  fill={T.purple}
-                  radius={[8, 8, 0, 0]}
-                  maxBarSize={38}
-                />
+                <Bar dataKey="GIV" name="GIV" fill={T.blue} radius={[8, 8, 0, 0]} maxBarSize={38} />
+                <Bar dataKey="NIV" name="NIV" fill={T.purple} radius={[8, 8, 0, 0]} maxBarSize={38} />
               </BarChart>
             </ResponsiveContainer>
-
             <div className="legend">
-              <span>
-                <i style={{ background: T.blue }} />
-                GIV
-              </span>
-              <span>
-                <i style={{ background: T.purple }} />
-                NIV
-              </span>
+              <span><i style={{ background: T.blue }} />GIV</span>
+              <span><i style={{ background: T.purple }} />NIV</span>
             </div>
           </Panel>
 
-          {/* ---------------------------------------------------------------- */}
-          {/* SUMMARY CARDS */}
-          {/* ---------------------------------------------------------------- */}
+          {/* SUMMARY */}
           <div className="summary-grid">
             <div className="summary-card">
-              <div className="summary-label">ยอดขายปัจจุบัน</div>
+              <div className="summary-label">ยอดขาย GIV</div>
               <div className="summary-value">{fmtBaht(data.currentTotal)}</div>
               <TrendChip value={growthPct} />
             </div>
-
             <div className="summary-card">
-              <div className="summary-label">Base รวม</div>
+              <div className="summary-label">Target</div>
               <div className="summary-value">{fmtBaht(data.baseTotal)}</div>
               <span className="summary-note">เป้าหมายช่วงเวลา</span>
             </div>
-
             <div className="summary-card">
-              <div className="summary-label">GIV</div>
+              <div className="summary-label">GIV รวม</div>
               <div className="summary-value">
-                {fmtBaht(
-                  data.givNivByCompany.reduce((s, d) => s + d.GIV, 0)
-                )}
+                {fmtBaht(data.givNivByCompany.reduce((s, d) => s + d.GIV, 0))}
               </div>
               <span className="summary-note">Gross Invoice Value</span>
             </div>
-
             <div className="summary-card">
-              <div className="summary-label">NIV</div>
+              <div className="summary-label">NIV รวม</div>
               <div className="summary-value">
-                {fmtBaht(
-                  data.givNivByCompany.reduce((s, d) => s + d.NIV, 0)
-                )}
+                {fmtBaht(data.givNivByCompany.reduce((s, d) => s + d.NIV, 0))}
               </div>
               <span className="summary-note">Net Invoice Value</span>
             </div>
           </div>
 
           <div className="foot-note">
-            หน้าตานี้จัดโครงสร้างไว้สำหรับเชื่อม Supabase ภายหลัง โดยชุดข้อมูลด้านบน
-            เป็น mock data จากโครงสร้างเดิม
+            ข้อมูลจริง: สิงหาคม 2026 | quarter / year รอเชื่อม Supabase
           </div>
         </main>
       </div>
-
     </div>
   );
 }
